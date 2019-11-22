@@ -13,17 +13,30 @@ class TestOutcome(unittest.TestCase):
     def test_equal(self):
         self.assertEqual(self.outcome1, self.outcome2)
 
+    def test___eq__(self):
+        self.assertTrue(self.outcome1.__eq__(self.outcome2))
+        self.assertFalse(self.outcome1.__eq__(self.outcome3))
+
+    def test___ne__(self):
+        self.assertTrue(self.outcome1.__ne__(self.outcome3))
+        self.assertFalse(self.outcome1.__ne__(self.outcome1))
+
+    def test___str__(self):
+        self.assertEqual(str(self.outcome1), "red (17:1)")
+        self.assertEqual(self.outcome1.__str__(), "red (17:1)")
+
+    def test___repr__(self):
+        self.assertEqual(self.outcome1.__repr__(), "red (17:1)")
+
     def test_unequal(self):
         self.assertNotEqual(self.outcome1, self.outcome3)
 
     def test_win_amount(self):
-        self.assertEqual(self.outcome1.win_amount(10), 170)
-
-    def test_print(self):
-        self.assertEqual(str(self.outcome1), "red (17:1)")
+        self.assertEqual(self.outcome1.winAmount(10), 170)
 
     def test_hash(self):
         self.assertEqual(hash(self.outcome1), hash(self.outcome2))
+        self.assertNotEqual(hash(self.outcome1), hash(self.outcome3))
 
 
 def main():

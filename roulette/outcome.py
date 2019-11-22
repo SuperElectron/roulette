@@ -14,11 +14,11 @@ class Outcome(object):
         payout: The payout of the bet, i.e. the multiplyer for the bet amount.
     """
 
-    def win_amount(self, amount):
+    def winAmount(self, amount):
         """Returns winning amount for a bet amount placed."""
         return self.odds * amount
 
-    def get_name(self):
+    def getName(self):
         """Returns string name of the table-bet."""
         return self.name
 
@@ -36,7 +36,7 @@ class Outcome(object):
         return "{} ({}:1)".format(self.name, self.odds)
 
     def __repr__(self):
-        return "{} ({}:1)".format(self.name, self.odss)
+        return "{} ({}:1)".format(self.name, self.odds)
 
     def __hash__(self):
         return int(hashlib.md5(self.name.encode('utf-8')).hexdigest(), 16)

@@ -4,7 +4,6 @@ Author: Steven F. Lott
 pdf name: oodesign-python-2.1.pdf
 
 ## Casino Example
-======
 1. Outcome.py
 
 Deliverables
