@@ -1,3 +1,5 @@
+# roulette/roulette/outcome.py
+
 
 import hashlib
 
