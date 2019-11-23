@@ -2,6 +2,7 @@
 
 
 class RoulettePayout():
+    """ Payout Multiplier odds: payout=odds*ammount"""
     StraightBet = 35
     SplitBet = 17
     StreetBet = 11

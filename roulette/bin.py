@@ -2,10 +2,9 @@
 
 
 class Bin(object):
-    """Represents a bin of the roulette.
+    """Represents a roulette bin (physical location to bet on table).
 
-    Provides a frozenset of all the outcomes of placing a bet in a
-    roulette bin.
+    Provides a frozenset to relate roulette bin outcomes to a placed bet.
 
     Attributes:
         outcomes: Contains all the outcomes of the bin.
@@ -29,4 +28,3 @@ class Bin(object):
 
     def __repr__(self):
         return ", ".join(map(str, self.outcomes))
-
