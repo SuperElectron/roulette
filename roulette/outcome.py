@@ -5,7 +5,8 @@ import hashlib
 
 
 class Outcome(object):
-    """Provide winning amount for a specific bet.
+    """
+    Provide winning amount for a specific bet.
 
     Stores name and odds of a specific bet in roulette and
     calculates winning amount for a specific bet amount on that

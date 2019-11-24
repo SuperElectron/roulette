@@ -9,7 +9,6 @@ from roulette.roulettePayout import RoulettePayout
 
 
 class TableTestCase(unittest.TestCase):
-    """Test Table class methods."""
 
     def setUp(self):
 
@@ -26,27 +25,25 @@ class TableTestCase(unittest.TestCase):
         self.bet_0 = Bet(100, self.outcome_0)
         self.bet_0_big = Bet(1100, self.outcome_0)
 
-    def test_is_valid(self):
-        """Test is_valid method."""
+    def test_isValid(self):
 
         # check valid bets
-        self.assertTrue(self.table.is_valid(self.bet_5))
-        self.assertTrue(self.table.is_valid(self.bet_0))
+        self.assertTrue(self.table.isValid(self.bet_5))
+        self.assertTrue(self.table.isValid(self.bet_0))
 
         # check invalid bet
-        self.assertFalse(self.table.is_valid(self.bet_0_big))
+        self.assertFalse(self.table.isValid(self.bet_0_big))
 
-    def test_place_bet(self):
-        """Test place_bet method."""
+    def test_placeBet(self):
 
         # place valid bet
-        self.table.place_bet(self.bet_5)
+        self.table.placeBet(self.bet_5)
 
         # check is in bets list
         self.assertIn(self.bet_5, self.table.bets)
 
         # attempt to place invalid bet
-        self.assertRaises(InvalidBet, self.table.place_bet, self.bet_0_big)
+        self.assertRaises(InvalidBet, self.table.placeBet, self.bet_0_big)
 
 
 def main():

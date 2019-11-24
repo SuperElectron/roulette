@@ -19,16 +19,16 @@ class Bet():
         return str(self) == str(other)
 
     def __ne__(self, other):
-        return str(self) != str(other)
+        return not self.__eq__(other)
 
-    def win_amount(self):
+    def winAmount(self):
         """Compute the amount won, given the amount of this bet."""
         return self.amount_bet + self.outcome.winAmount(self.amount_bet)
 
-    def get_amount(self):
+    def getAmount(self):
         """Returns the amount bet."""
         return self.amount_bet
 
-    def get_outcome(self):
+    def getOutcome(self):
         """Returns the outcome of the bet."""
         return self.outcome

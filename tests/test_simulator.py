@@ -11,13 +11,12 @@ from roulette.simulator import Simulator
 
 
 class SimulatorTestCase(unittest.TestCase):
-    """Test Simulator class."""
 
     def setUp(self):
 
         # create NonRandom instance with seed
         non_random = NonRandom()
-        non_random.set_seed(1)
+        non_random.setSeed(1)
 
         # create game and player
         wheel = Wheel(non_random)

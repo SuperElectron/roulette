@@ -6,11 +6,12 @@ class InvalidBet(Exception):
 
 
 class Table():
-
-    """Table contains all the Bet s created by the Player.
+    """
+    Table contains all the Bet s created by the Player.
 
     A table also has a betting limit, and the sum of all of a players bets
-    must be less than or equal to this limit."""
+    must be less than or equal to this limit.
+    """
 
     def __init__(self):
 
@@ -27,7 +28,7 @@ class Table():
     def __contains__(self, bet):
         return bet in self.bets
 
-    def is_valid(self, bet):
+    def isValid(self, bet):
         """Validates this bet.
 
         If the sum of all bets is less than or equal to the table limit, then
@@ -36,9 +37,9 @@ class Table():
         Args:
             bet: A Bet instance to be validated.
         """
-        return bet.get_amount() < self._remaining_bets_limit()
+        return bet.getAmount() < self._remaining_bets_limit()
 
-    def place_bet(self, bet):
+    def placeBet(self, bet):
         """Adds this bet to the list of working bets.
 
         If the sum of all bets is greater than the table limit, then an
@@ -53,17 +54,17 @@ class Table():
         """
 
         # check if the bet is valid first
-        if self.is_valid(bet):
+        if self.isValid(bet):
             self.bets.append(bet)
 
         else:
             raise InvalidBet
 
-    def clean_table(self):
+    def cleanTable(self):
         """Delete all bets in table."""
         self.bets = []
 
-    def remove_bet(self, bet):
+    def removeBet(self, bet):
         """Remove bet from the table.
 
         Args:
@@ -71,12 +72,12 @@ class Table():
         """
         self.bets.remove(bet)
 
-    def is_empty(self):
+    def isEmpty(self):
         return self.bets == []
 
     def _remaining_bets_limit(self):
         """Calculates how much bets amount can be placed."""
 
-        total_bets_amount = sum(bet.get_amount() for bet in self.bets)
+        total_bets_amount = sum(bet.getAmount() for bet in self.bets)
 
         return self.limit - total_bets_amount

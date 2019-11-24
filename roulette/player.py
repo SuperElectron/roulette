@@ -2,13 +2,14 @@
 
 
 from roulette.wheel import Wheel
-from roulette.table import Table
-from roulette.bin_builder import BinBuilder
 from roulette.bet import Bet
 
 
 class Player(object):
-    """Base class for players."""
+    """
+    Base class for players that retrieves table, stake, rounds to go, and controls if
+    the player is playing (can place bets) and places the bet.
+    """
 
     def __init__(self, table):
         self.stake = None
@@ -16,17 +17,17 @@ class Player(object):
         self.table = table
         self.last_outcomes = None
 
-    def get_table(self):
+    def getTable(self):
         return self.table
 
-    def get_stake(self):
+    def getStake(self):
         return self.stake
 
-    def set_stake(self, budget):
+    def setStake(self, budget):
         """Set the budget of the player."""
         self.stake = budget
 
-    def set_rounds_to_go(self, rounds_to_go):
+    def setRoundsToGo(self, rounds_to_go):
         """Set maximum rounds the player will play."""
         self.rounds_to_go = rounds_to_go
 
@@ -34,12 +35,11 @@ class Player(object):
         """Returns true while the player is still active."""
         return self.rounds_to_go > 0 and self.stake > 0
 
-    def place_bets(self, bets):
-        """Updates the Table with the various Bet s.
+    def placeBets(self, bets):
+        """Update Table with Bets.
 
         Args:
-            bets: List of bets to be placed on the table. It could be just one
-            bet
+            bets: List of bets to be placed on the table.
 
         Returns:
             True if all bets were placed ok.
@@ -54,13 +54,13 @@ class Player(object):
         for bet in bets:
 
             # check if player has money to bet
-            if bet.get_amount() <= self.stake:
+            if bet.getAmount() <= self.stake:
 
                 # place bet on table
-                self.table.place_bet(bet)
+                self.table.placeBet(bet)
 
                 # update stake and rounds to go
-                self.stake -= bet.get_amount()
+                self.stake -= bet.getAmount()
                 self.rounds_to_go -= 1
 
             else:
@@ -78,10 +78,10 @@ class Player(object):
             bet: The bet which won.
         """
         # update stake
-        self.stake += bet.win_amount()
+        self.stake += bet.winAmount()
 
         # remove bet
-        self.table.remove_bet(bet)
+        self.table.removeBet(bet)
 
     def lose(self, bet):
         """Notification from the Game that the Bet was a loser.
@@ -90,20 +90,20 @@ class Player(object):
             bet: The bet wich lose."""
 
         # remove bet
-        self.table.remove_bet(bet)
+        self.table.removeBet(bet)
 
     def winners(self, outcomes):
         """This is notification from the Game of all the winning outcomes."""
 
         self.last_outcomes = outcomes
 
-    def get_outcome(self, outcome_name):
+    def getOutcome(self, outcome_name):
         """Query a constructed wheel for getting outcome."""
 
         # create Whell
         wheel = Wheel()
 
-        return wheel.get_outcome(outcome_name)
+        return wheel.getOutcome(outcome_name)
 
 
 class Martingale(Player):
@@ -112,28 +112,25 @@ class Martingale(Player):
     This player doubles their bet on every loss and resets their bet to a base
     amount on each win."""
 
-    # DATA
     BASE_BET = "Black"
     BASE_AMOUNT = 1
 
-    # FIELDS
     loss_count = 0
     bet_multiple = 1
 
-    # PUBLIC
-    def place_bets(self):
+    def placeBets(self):
         """Create bet and update table with it."""
 
         # create bet
         bet = Bet(self.BASE_AMOUNT * self.bet_multiple,
-                  self.get_outcome(self.BASE_BET))
+                  self.getOutcome(self.BASE_BET))
 
         # update table with bet
-        success = super(Martingale, self).place_bets(bet)
+        success = super(Martingale, self).placeBets(bet)
 
         # if bet coudn't be placed because no more money, leave and reset
         if not success:
-            self.set_rounds_to_go(0)
+            self.setRoundsToGo(0)
             self.loss_count = 0
             self.bet_multiple = 1
 
@@ -179,7 +176,7 @@ class SevenReds(Martingale):
 
     red_count = 7
 
-    def place_bets(self):
+    def placeBets(self):
         """If redCount is zero, this places a bet on black, using the
         bet multiplier."""
 
@@ -187,7 +184,7 @@ class SevenReds(Martingale):
         if self.red_count == 0:
 
             # place bets following Martingale method
-            success = super(SevenReds, self).place_bets()
+            success = super(SevenReds, self).placeBets()
 
             if success:
                 self.red_count = 7
@@ -198,7 +195,7 @@ class SevenReds(Martingale):
         If this vector includes red, redCount is decremented. Otherwise,
         red_count is reset to 7."""
 
-        if self.get_outcome("Red") in outcomes:
+        if self.getOutcome("Red") in outcomes:
             self.red_count -= 1
 
         else:
@@ -210,19 +207,16 @@ class Passenger57(Player):
 
     The Passenger57 only bets a fixed amount to black outcome."""
 
-    # DATA
     BASE_BET = "Black"
     BASE_AMOUNT = 100
 
-    # FIELDS
     stake = 200
 
-    # PUBLIC
-    def place_bets(self):
+    def placeBets(self):
         """Updates the Table with the various bets."""
 
         # create bet
-        bet = Bet(self.BASE_AMOUNT, self.get_outcome(self.BASE_BET))
+        bet = Bet(self.BASE_AMOUNT, self.getOutcome(self.BASE_BET))
 
         # update table with bet
-        super(Passenger57, self).place_bets(bet)
+        super(Passenger57, self).placeBets(bet)

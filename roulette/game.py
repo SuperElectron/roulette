@@ -3,20 +3,21 @@
 
 class Game():
 
-    """Game manages the sequence of actions that defines the game of Roulette.
+    """
+    Game manages the sequence of actions that defines the game of Roulette.
 
     This includes notifying the Player to place bets, spinning the Wheel and
-    resolving the Bets actually present on the Table."""
+    resolving the Bets present on the Table.
+    """
 
     def __init__(self, wheel, table):
         self.wheel = wheel
         self.table = table
 
-    # PUBLIC
     def cycle(self, player):
-        """Execute a single cycle of play with a given Player.
+        """Runs a single cycle of play with a given Player.
 
-        It will call thePlayers placeBets() method to get bets. It will call
+        It will call thePlayers place_bets() method to get bets. It will call
         theWheels next() method to get the next winning Bin.
 
         It will then call theTables iterator to get an Iterator over the Bets.
@@ -38,7 +39,7 @@ class Game():
             return False
 
         # place bets
-        player.place_bets()
+        player.placeBets()
 
         # spin the wheel
         win_bin = self.wheel.next()
@@ -47,11 +48,11 @@ class Game():
         player.winners(win_bin)
 
         # iterate bets
-        table = player.get_table()
+        table = player.getTable()
         for bet in table:
 
             # check if bet is a winning one
-            if bet.get_outcome() in win_bin:
+            if bet.getOutcome() in win_bin:
                 player.win(bet)
 
             else:

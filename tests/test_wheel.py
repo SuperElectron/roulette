@@ -10,11 +10,6 @@ from roulette.roulettePayout import RoulettePayout
 
 
 class WheelConstructionTestCase(unittest.TestCase):
-    """Test Wheel class construction.
-    1. Add outcomes
-    2 .Bins constructed with approapriate outcomes
-    3. Outcomes can be fetched with their name.
-    """
 
     def setUp(self):
 
@@ -28,7 +23,6 @@ class WheelConstructionTestCase(unittest.TestCase):
         self.bin_builder = BinBuilder()
 
     def test_add_outcome(self):
-        """Testing add outcome for a Bin in a new Wheel."""
 
         # Bin 0 outcomes
         self.wheel.add_outcome(0, self.outcome_0)
@@ -47,10 +41,9 @@ class WheelConstructionTestCase(unittest.TestCase):
         self.assertIn(self.outcome_5, self.wheel.get(37))
 
     def test_bin_building(self):
-        """Testing bin building of the wheel using BinBuilder."""
 
         # build bins for the wheel
-        self.bin_builder.build_bins(self.wheel)
+        self.bin_builder.buildBins(self.wheel)
 
         sample_bin1 = [Outcome("Street 1-2-3", RoulettePayout.StreetBet),
                        Outcome("Number 1", RoulettePayout.StraightBet),
@@ -82,7 +75,6 @@ class WheelConstructionTestCase(unittest.TestCase):
             self.assertIn(outcome, self.wheel.get(37))
 
     def test_outcome_mapping(self):
-        """Testing if Wheel instance is mapping added outcomes ok."""
 
         # add outcomes to wheel
         self.wheel.add_outcome(0, self.outcome_0)
@@ -90,11 +82,11 @@ class WheelConstructionTestCase(unittest.TestCase):
         self.wheel.add_outcome(3, self.outcome_5)
 
         # check that they are mapped
-        self.assertEqual(self.wheel.get_outcome(self.outcome_0.getName()),
+        self.assertEqual(self.wheel.getOutcome(self.outcome_0.getName()),
                          self.outcome_0)
-        self.assertEqual(self.wheel.get_outcome(self.outcome_00.getName()),
+        self.assertEqual(self.wheel.getOutcome(self.outcome_00.getName()),
                          self.outcome_00)
-        self.assertEqual(self.wheel.get_outcome(self.outcome_5.getName()),
+        self.assertEqual(self.wheel.getOutcome(self.outcome_5.getName()),
                          self.outcome_5)
 
 
@@ -108,20 +100,19 @@ class WheelAndNonRandomNumberTestCase(unittest.TestCase):
 
         # create NonRandom instance with seed
         non_random = NonRandom()
-        non_random.set_seed(1)
+        non_random.setSeed(1)
 
         # create wheel with NonRandom instance
         self.wheel = Wheel(non_random)
 
     def test_next(self):
-        """Testing spinning the wheel to get next number."""
-
         # self.assertEqual(self.wheel.next(), self.wheel.get(5))
         # self.assertEqual(self.wheel.next(), self.wheel.get(32))
         # self.assertEqual(self.wheel.next(), self.wheel.get(29))
         # self.assertEqual(self.wheel.next(), self.wheel.get(9))
         # self.assertEqual(self.wheel.next(), self.wheel.get(18))
         # self.assertEqual(self.wheel.next(), self.wheel.get(17))
+        pass
 
 
 def main(void):

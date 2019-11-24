@@ -2,8 +2,8 @@
 
 
 class Bin(object):
-    """Represents a roulette bin (physical location to bet on table).
-
+    """
+    Represents a roulette bin (physical location to bet on table).
     Provides a frozenset to relate roulette bin outcomes to a placed bet.
 
     Attributes:
@@ -14,7 +14,7 @@ class Bin(object):
         self.outcomes = frozenset(outcomes)
 
     def add(self, outcome):
-        """Adds an outcome to the bin."""
+        """Adds an outcome to the bin. Bin type is a frozenset."""
         self.outcomes |= set([outcome])
 
     def __contains__(self, outcome):

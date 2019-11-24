@@ -12,7 +12,7 @@ class Wheel(object):
         self.bins = tuple(Bin() for i in range(38))
         self.rng = rng or random.Random()
         self.all_outcomes = {}
-        self._build_bins()
+        self._buildBins()
 
     def add_outcome(self, number, outcome):
         """Add outcome to a specified bin.
@@ -37,7 +37,7 @@ class Wheel(object):
 
         return self.bins[number]
 
-    def get_outcome(self, name):
+    def getOutcome(self, name):
         """Returns a reference to an outcome mapped in the wheel."""
 
         # check if the outcome is mapped
@@ -47,8 +47,8 @@ class Wheel(object):
         else:
             return None
 
-    def _build_bins(self):
+    def _buildBins(self):
         """Build bins of the wheel."""
 
         bin_builder = BinBuilder()
-        bin_builder.build_bins(self)
+        bin_builder.buildBins(self)

@@ -6,7 +6,6 @@ from roulette.roulettePayout import RoulettePayout
 
 
 class RoulettePayoutTestCase(unittest.TestCase):
-    """Test Table class methods."""
 
     def setUp(self):
         self.straightBet = 35
@@ -20,7 +19,6 @@ class RoulettePayoutTestCase(unittest.TestCase):
         self.evenBet = 1
 
     def test_attributes(self):
-        """Test attributes from RoulettePayout Class. """
 
         self.assertTrue(RoulettePayout.StraightBet, self.straightBet)
         self.assertTrue(RoulettePayout.SplitBet, self.splitBet)

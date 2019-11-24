@@ -14,7 +14,6 @@ class TestOutcome(unittest.TestCase):
         self.outcome4 = Outcome("split-bet", 19)
 
     def test_setup(self):
-        """ verifying setUp variables for test_outcome.py """
         self.assertEqual(self.outcome1, self.outcome2)
         self.assertNotEqual(self.outcome1, self.outcome3)
         self.assertEqual(self.outcome1.getName(), self.outcome2.getName())

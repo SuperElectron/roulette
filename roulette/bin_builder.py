@@ -6,12 +6,12 @@ from roulette.outcome import Outcome
 
 
 class BinBuilder():
+    """
+    Build up Bins of a Wheel, filling them with its Outcomes.
 
-    """Build up Bins of a Wheel, filling them with its Outcomes.
-
-    Calls one method for each kind of bet, that iterates through the Bins of
-    the Wheel that have Outcomes on that bet and place those Outcomes in the
-    Bin."""
+    Calls one method for each kind of bet in bet_methods attribute.
+    Place Outcomes in bin by iterating through Wheel Bins that have Outcomes on a bet
+    """
 
     RED_NUMBERS = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21,
                    23, 25, 27, 30, 32, 34, 36]
@@ -22,7 +22,7 @@ class BinBuilder():
                             self._gen_dozen, self._gen_column, self._gen_even,
                             self._gen_five)
 
-    def build_bins(self, wheel):
+    def buildBins(self, wheel):
         """Fill Bins of a Wheel with Outcomes of each kind of bet."""
 
         # iterate all bet building methods
@@ -45,12 +45,12 @@ class BinBuilder():
             # assign to bin
             wheel.add_outcome(i, outcome)
 
-        # create zero outcome and assign it to zero bin
+        # create zero outcome and assign it to 0 bin
         outcome_name = "Number 0"
         outcome = Outcome(outcome_name, outcome_odds)
         wheel.add_outcome(0, outcome)
 
-        # create zerozero outcome and assign it to zerozero bin
+        # create double zero outcome and assign it to 00 bin
         outcome_name = "Number 00"
         outcome = Outcome(outcome_name, outcome_odds)
         wheel.add_outcome(37, outcome)
@@ -78,8 +78,6 @@ class BinBuilder():
         # create all up-down split bets iterating first 11 rows and all cols
         for row in range(11):
             for col in range(1, 4):
-
-                # create outcome
                 up_num = 3 * row + col
                 down_num = up_num + 3
                 outcome_name = "Split {}-{}".format(up_num, down_num)
@@ -103,7 +101,6 @@ class BinBuilder():
                     3 * row + 2,
                     3 * row + 3]
 
-            # create outcome
             outcome_name = "Street {}-{}-{}".format(nums[0], nums[1], nums[2])
             outcome = Outcome(outcome_name, outcome_odds)
 
@@ -127,7 +124,6 @@ class BinBuilder():
                         3 * row + 4 + col,
                         3 * row + 5 + col]
 
-                # create outcome
                 outcome_name = "Corner {}-{}-{}-{}".format(nums[0], nums[1],
                                                            nums[2], nums[3])
                 outcome = Outcome(outcome_name, outcome_odds)
@@ -153,7 +149,6 @@ class BinBuilder():
                     3 * row + 5,
                     3 * row + 6]
 
-            # create outcome
             outcome_name = "Line {}-{}-{}-{}-{}-{}".format(nums[0], nums[1],
                                                            nums[2], nums[3],
                                                            nums[4], nums[5])
@@ -172,7 +167,6 @@ class BinBuilder():
         # create and assign a dozen bet for each number
         for dozen in range(3):
 
-            # create outcome
             outcome_name = "Dozen " + str(dozen + 1)
             outcome = Outcome(outcome_name, outcome_odds)
 
@@ -189,7 +183,6 @@ class BinBuilder():
         # create and assign a dozen bet for each number
         for col in range(1, 4):
 
-            # create outcome
             outcome_name = "Column " + str(col)
             outcome = Outcome(outcome_name, outcome_odds)
 
@@ -203,7 +196,6 @@ class BinBuilder():
         # retrieve outcome odds for this bet
         outcome_odds = RoulettePayout.EvenBet
 
-        # create outcomes
         outcome_low = Outcome("Low", outcome_odds)
         outcome_high = Outcome("High", outcome_odds)
         outcome_even = Outcome("Even", outcome_odds)
@@ -237,8 +229,6 @@ class BinBuilder():
 
         # retrieve outcome odds for this bet
         outcome_odds = RoulettePayout.FiveBet
-
-        # create outcome
         outcome = Outcome("00-0-1-2-3", outcome_odds)
 
         # assign to bins

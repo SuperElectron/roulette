@@ -19,10 +19,6 @@ class TestBin(unittest.TestCase):
 
         self.bin_add = Bin()
 
-    def test_setup(self):
-        """ verifying setUp variables for test_bin.py """
-        pass
-
     def test_contain_outcome(self):
         self.assertIn(Outcome("Number 0", RoulettePayout.StraightBet),
                       self.bin_0)

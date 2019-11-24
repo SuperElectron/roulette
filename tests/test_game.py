@@ -10,16 +10,18 @@ from roulette.nonRandom import NonRandom
 
 
 class GameTestCase(unittest.TestCase):
-    """Test Game class for complete game cycle functioning.
+    """
+    Test Game class for running a complete game cycle.
 
-    Uses a non_random number generator and a stub Player to predict wheel
-    results and stake evolution based on a fixed sequence of winning bins."""
+    Uses a nonRandom() number generator and a stub Player to predict wheel
+    results and stake evolution based on a fixed sequence of winning bins.
+    """
 
     def setUp(self):
 
         # create NonRandom instance with seed
         non_random = NonRandom()
-        non_random.set_seed(1)
+        non_random.setSeed(1)
 
         # create game
         self.wheel = Wheel(non_random)
@@ -28,55 +30,50 @@ class GameTestCase(unittest.TestCase):
 
         # create player
         self.player = Passenger57(self.table)
-        self.player.set_stake(1000)
+        self.player.setStake(1000)
 
-    # PUBLIC
     def test_cycle(self):
-        """Test a cycle of the game, based on a non-random number generator."""
 
         self.game.cycle(self.player)
-        self.assertEqual(self.player.get_stake(), 1100)
+        self.assertEqual(self.player.getStake(), 1100)
 
         self.game.cycle(self.player)
-        self.assertEqual(self.player.get_stake(), 1000)
+        self.assertEqual(self.player.getStake(), 1000)
 
         self.game.cycle(self.player)
-        self.assertEqual(self.player.get_stake(), 1100)
+        self.assertEqual(self.player.getStake(), 1100)
 
         self.game.cycle(self.player)
-        self.assertEqual(self.player.get_stake(), 1000)
+        self.assertEqual(self.player.getStake(), 1000)
 
         self.game.cycle(self.player)
-        self.assertEqual(self.player.get_stake(), 900)
+        self.assertEqual(self.player.getStake(), 900)
 
         self.game.cycle(self.player)
-        self.assertEqual(self.player.get_stake(), 1000)
+        self.assertEqual(self.player.getStake(), 1000)
 
     def test_cycle_depleted_stake(self):
-        """Test a cycle of the game, if player lose all its stake.
-
-        Player should not be able to bet again if reaches the zero stake."""
 
         # reduce stake so player loses all and cannot bet again
-        self.player.set_stake(300)
+        self.player.setStake(300)
 
         self.game.cycle(self.player)
-        self.assertEqual(self.player.get_stake(), 400)
+        self.assertEqual(self.player.getStake(), 400)
 
         self.game.cycle(self.player)
-        self.assertEqual(self.player.get_stake(), 300)
+        self.assertEqual(self.player.getStake(), 300)
 
         self.game.cycle(self.player)
-        self.assertEqual(self.player.get_stake(), 400)
+        self.assertEqual(self.player.getStake(), 400)
 
         self.game.cycle(self.player)
-        self.assertEqual(self.player.get_stake(), 300)
+        self.assertEqual(self.player.getStake(), 300)
 
         self.game.cycle(self.player)
-        self.assertEqual(self.player.get_stake(), 200)
+        self.assertEqual(self.player.getStake(), 200)
 
         self.game.cycle(self.player)
-        self.assertEqual(self.player.get_stake(), 300)
+        self.assertEqual(self.player.getStake(), 300)
 
         self.assertTrue(self.game.cycle(self.player))
         self.assertTrue(self.player.playing())
