@@ -6,13 +6,10 @@ pdf name: oodesign-python-2.1.pdf
 ```
 
 ## Casino Example
-1. Outcome.py
+- This emulates a basic casino with functionality in /roulette and tests in /tests
 
-Deliverables
-	1. the Outcome class
-	2. testing class for Outcome class.
-	- unit test should create three instances of Outcome, two of which have the same name.
-	- It should use a number of individual tests to establish that two Outcome with the same name will test true for equality, have the same hash code, and establish that the winAmount method works correctly.
+### How to use
+- run it! 
 
 ### Notes
 - ensure that project name and source folder name (roulette) are the same so that test discovery functions.

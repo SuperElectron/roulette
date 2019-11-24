@@ -1,5 +1,6 @@
 # roulette/tests/test_bin.py
 
+
 import unittest
 from roulette.outcome import Outcome
 from roulette.bin import Bin
@@ -46,7 +47,7 @@ class TestBin(unittest.TestCase):
                          "00-0-1-2-3 (6:1), Number 0 (35:1)")
 
 
-def main():
+def main(void):
     unittest.main()
 
 

@@ -1,5 +1,6 @@
 # roulette/tests/test_outcome.py
 
+
 import unittest
 from roulette.outcome import Outcome
 
@@ -41,7 +42,7 @@ class TestOutcome(unittest.TestCase):
         self.assertNotEqual(hash(self.outcome1), hash(self.outcome3))
 
 
-def main():
+def main(void):
     unittest.main()
 
 
